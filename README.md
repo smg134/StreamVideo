@@ -1,2 +1,2 @@
 # StreamVideo
-projects 4 &amp; 5
+Code for an imaginary video streaming service
