@@ -10,7 +10,10 @@
 
 int main() {
 
-	// TODO: Add test cases
-	
-	return 0;
+  // TODO: Add test cases
+  {
+    Video myVideo();
+  }
+  
+  return 0;
 }
