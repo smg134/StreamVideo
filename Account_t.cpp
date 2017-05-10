@@ -22,7 +22,24 @@ int main() {
         assert(customer.data() == "");
     }
 
-    // TODO: Add test cases
+    // one stream
+	{	
+		Video myVideo("video", 2, 0, 0, 2);
+		Stream myStream(myVideo, 1);
+		
+		Account customer("Fred");
+		
+		customer.addStream(myStream);
+		
+		assert(customer.getName() == "Fred");
+	
+		assert(customer.data() == "Fred,ORIGINAL,video,0,0,1\n");
+		
+		// FIXME: possibly fix testing method?
+		// not sure if testing with string literal here is good. any feedback/help is appreciated
+		assert(customer.report() == "Stream Report for Account: Fred\nStreams:\n\tvideo\t1\n\nTotal Stream Events: 1\nNon-Original Stream Events: 0\nTotal Time: 0:0\n");
+	}
     
+	// 
     return 0;
 }
