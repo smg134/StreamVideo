@@ -35,11 +35,33 @@ int main() {
 	
 		assert(customer.data() == "Fred,ORIGINAL,video,0,0,1\n");
 		
-		// FIXME: possibly fix testing method?
-		// not sure if testing with string literal here is good. any feedback/help is appreciated
 		assert(customer.report() == "Stream Report for Account: Fred\nStreams:\n\tvideo\t1\n\nTotal Stream Events: 1\nNon-Original Stream Events: 0\nTotal Time: 0:0\n");
 	}
     
-	// 
+	//multiple streams
+	{	
+		Video myOriginal("original", 2, 0, 30, 1);
+		Stream myStreamO(myOriginal, 1);
+
+		Video myTVShow("tvshow", 1, 0, 30, 1);
+		Stream myStreamTV(myTVShow, 1);
+
+		Video myMovie("movie", 0, 2, 30, 1);
+		Stream myStreamM(myMovie, 1);
+		
+		Account customer("Fred");
+		
+		customer.addStream(myStreamO);
+		customer.addStream(myStreamTV);
+		customer.addStream(myStreamM);
+		
+		assert(customer.getName() == "Fred");
+	
+		assert(customer.data() == "Fred,ORIGINAL,original,0,30,1\nFred,TVSHOW,tvshow,0,30,1\nFred,MOVIE,movie,2,30,2\n");
+
+		assert(customer.report() == "Stream Report for Account: Fred\nStreams:\n\toriginal\t1\n\ttvshow\t1\n\tmovie\t2\n\n"
+			"Total Stream Events: 4\nNon-Original Stream Events: 3\nTotal Time: 3:30\n");
+	}
+	
     return 0;
 }
