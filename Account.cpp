@@ -12,6 +12,9 @@
 #include <string>
 #include <vector>
 
+//Video Types
+std::string v_type[3] = {"MOVIE", "TVSHOW", "ORIGINAL"};
+
 // constructor
 Account::Account(const std::string& name)
     : name(name)
@@ -70,25 +73,23 @@ std::string Account::report() const {
         // stream counts and originals
         int streamCount = 0;
         int originals = 0;
-	switch(it->getVideo().getType()) {
-
-            // for movies, the stream count is the number of hours, with a minimum of 1
-            case Video::MOVIE:
+        
+        // for movies, the stream count is the number of hours, with a minimum of 1
+        if(v_type[it->getVideo().getType()] == "MOVIE"){
             streamCount += getStreamCount(it, Video::MOVIE);
-            break;
-
-            // for TV shows, the stream count is just the number of streams
-            case Video::TVSHOW:
+        } 
+        
+        // for TV shows, the stream count is just the number of streams
+        if(v_type[it->getVideo().getType()] == "TVSHOW"){
             streamCount += getStreamCount(it, Video::TVSHOW);
-            break;
-
-            // for TV shows, the stream count is just the number of streams
-            case Video::ORIGINAL:
+        } 
+        
+        // for TV shows, the stream count is just the number of streams
+        if(v_type[it->getVideo().getType()] == "ORIGINAL"){
             originals += getStreamCount(it, Video::ORIGINAL);
             streamCount = originals;
-            break;
-        }
-        
+        } 
+
         // stream counts for this video
         std::ostringstream out_str_stream;
         reportOutput << '\t' << streamCount << '\n';
@@ -120,9 +121,6 @@ std::string Account::data() const {
 
     // customer name
     std::string name = getName();
-
-    //Video Types
-    std::string v_type[3] = {"MOVIE", "TVSHOW", "ORIGINAL"};
 
     // list of streams
     for (std::vector<Stream>::const_iterator it = streams.begin(); it != streams.end(); ++it) {
