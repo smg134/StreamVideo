@@ -23,6 +23,9 @@ public:
 
     // add a new stream
     void addStream(const Stream& stream);
+	
+	// get the stream count
+	int getStreamCount(std::vector<Stream>::const_iterator it);
 
     // account streaming report
     std::string report() const;

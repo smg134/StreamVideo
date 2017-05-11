@@ -36,6 +36,32 @@ int calcTotalTime(int time, int occurences)
   return (time * occurences);
 }
 
+// get the stream count
+int Account::getStreamCount(std::vector<Stream>::const_iterator it) {
+	int streamCount = 0;
+    switch(it->getVideo().getType()) {
+
+		// for movies, the stream count is the number of hours, with a minimum of 1
+		case Video::MOVIE:
+		streamCount += it->getOccurrences() * (it->getVideo().getHours() ? it->getVideo().getHours() : 1);
+		return streamCount;
+		break;
+		
+		// for TV shows, the stream count is just the number of streams
+		case Video::TVSHOW:
+		streamCount += it->getOccurrences();
+		return streamCount;
+		break;
+
+		// for TV shows, the stream count is just the number of streams
+		case Video::ORIGINAL:
+		streamCount += it->getOccurrences();
+		return streamCount;
+		break;
+    }
+	return streamCount;
+}
+
 // account streaming report
 std::string Account::report() const {
 
