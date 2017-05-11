@@ -34,7 +34,7 @@ std::string Account::report() const {
 
     // stringstream to convert data
     std::ostringstream reportOutput;
-
+  
     // customer name
     reportOutput << "Stream Report for Account: " << getName() << '\n';
 
@@ -71,7 +71,7 @@ std::string Account::report() const {
             // for TV shows, the stream count is just the number of streams
             case Video::ORIGINAL:
             originals += it->getOccurrences();
-            streamCount += it->getOccurrences();
+            streamCount = originals;
             break;
         }
 
@@ -82,13 +82,13 @@ std::string Account::report() const {
         totalStreams += streamCount;
         totalOriginals += originals;
     }
-    reportOutput << '\n';
-
+    int totalNonOriginalStream = totalStreams - totalOriginals;
+    
     // total stream counts
-    reportOutput << "Total Stream Events: " << totalStreams << '\n';
+    reportOutput << "\nTotal Stream Events: " << totalStreams << '\n';
 
     // total non-original stream counts
-    reportOutput << "Non-Original Stream Events: " << (totalStreams - totalOriginals) << '\n';
+    reportOutput << "Non-Original Stream Events: " << totalNonOriginalStream << '\n';
 
     // total time
     int minutes = totalMinutes % 60;
