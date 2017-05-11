@@ -63,12 +63,12 @@ std::string Account::report() const {
     int totalMinutes = 0;
     for (std::vector<Stream>::const_iterator it = streams.begin(); it != streams.end(); ++it) {
 
-        // title of stream
-        reportOutput << '\t' << it->getVideo().getTitle();
+		// title of stream
+		reportOutput << '\t' << it->getVideo().getTitle();
 
-        // current total hours and minutes
-	totalHours += calcTotalTime(it->getVideo().getHours(), it->getOccurrences());
-	totalMinutes += calcTotalTime(it->getVideo().getMinutes(), it->getOccurrences());
+		// current total hours and minutes
+		totalHours += calcTotalTime(it->getVideo().getHours(), it->getOccurrences());
+		totalMinutes += calcTotalTime(it->getVideo().getMinutes(), it->getOccurrences());
 	
         // stream counts and originals
         int streamCount = 0;
@@ -77,21 +77,20 @@ std::string Account::report() const {
 
             // for movies, the stream count is the number of hours, with a minimum of 1
             case Video::MOVIE:
-            streamCount += it->getOccurrences() * (it->getVideo().getHours() ? it->getVideo().getHours() : 1);
+            streamCount += getStreamCount(it, Video::MOVIE);
             break;
 
             // for TV shows, the stream count is just the number of streams
             case Video::TVSHOW:
-            streamCount += it->getOccurrences();
+            streamCount += getStreamCount(it, Video::TVSHOW);
             break;
 
             // for TV shows, the stream count is just the number of streams
             case Video::ORIGINAL:
-            originals += it->getOccurrences();
+            originals += getStreamCount(it, Video::ORIGINAL);
             streamCount = originals;
             break;
         }
-
         // stream counts for this video
         std::ostringstream out_str_stream;
         reportOutput << '\t' << streamCount << '\n';
@@ -162,7 +161,7 @@ std::string Account::data() const {
 
             // for movies, the stream count is the number of hours, with a minimum of 1
             case Video::MOVIE:
-            output << (it->getOccurrences() * (it->getVideo().getHours() ? it->getVideo().getHours() : 1));
+            output << getStreamCount(it, Video::MOVIE);
             break;
 
             // all others are just the number of occurrences
