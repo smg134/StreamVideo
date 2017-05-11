@@ -143,8 +143,8 @@ std::string Account::data() const {
         output << ',' << it->getVideo().getTitle();
 
         // stream hours and minutes
-        output << ',' << (it->getVideo().getHours() * it->getOccurrences());
-        output << ',' << (it->getVideo().getMinutes() * it->getOccurrences());
+        output << ',' << calcTotalTime(it->getVideo().getHours(), it->getOccurrences());
+        output << ',' << calcTotalTime(it->getVideo().getMinutes(), it->getOccurrences());
 
         // stream counts
         output << ',';
