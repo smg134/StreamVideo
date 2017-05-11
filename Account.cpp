@@ -33,13 +33,13 @@ void Account::addStream(const Stream& stream) {
 std::string Account::report() const {
 
     // stringstream to convert data
-    std::ostringstream output;
+    std::ostringstream reportOutput;
 
     // customer name
-    output << "Stream Report for Account: " << getName() << '\n';
+    reportOutput << "Stream Report for Account: " << getName() << '\n';
 
     // list of streams
-    output << "Streams:" << '\n';
+    reportOutput << "Streams:" << '\n';
     int totalStreams = 0;
     int totalOriginals = 0;
     int totalHours = 0;
@@ -47,7 +47,7 @@ std::string Account::report() const {
     for (std::vector<Stream>::const_iterator it = streams.begin(); it != streams.end(); ++it) {
 
         // title of stream
-        output << '\t' << it->getVideo().getTitle();
+        reportOutput << '\t' << it->getVideo().getTitle();
 
         // current total hours and minutes
         totalHours += it->getVideo().getHours() * it->getOccurrences();
@@ -77,25 +77,25 @@ std::string Account::report() const {
 
         // stream counts for this video
         std::ostringstream out_str_stream;
-        output << '\t' << streamCount << '\n';
+        reportOutput << '\t' << streamCount << '\n';
 
         totalStreams += streamCount;
         totalOriginals += originals;
     }
-    output << '\n';
+    reportOutput << '\n';
 
     // total stream counts
-    output << "Total Stream Events: " << totalStreams << '\n';
+    reportOutput << "Total Stream Events: " << totalStreams << '\n';
 
     // total non-original stream counts
-    output << "Non-Original Stream Events: " << (totalStreams - totalOriginals) << '\n';
+    reportOutput << "Non-Original Stream Events: " << (totalStreams - totalOriginals) << '\n';
 
     // total time
     int minutes = totalMinutes % 60;
     int hours = totalHours + totalMinutes / 60;
-    output << "Total Time: " << hours << ":" << minutes << '\n';
+    reportOutput << "Total Time: " << hours << ":" << minutes << '\n';
 
-    return output.str();
+    return reportOutput.str();
 }
 
 // account data in CSV
