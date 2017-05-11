@@ -29,6 +29,13 @@ void Account::addStream(const Stream& stream) {
     streams.push_back(stream);
 }
 
+//Refactoring Function: Gets total hours/minutes and multiples my total occurences
+
+int calcTotalTime(int time, int occurences)
+{
+  return (time * occurences);
+}
+
 // account streaming report
 std::string Account::report() const {
 
@@ -50,9 +57,9 @@ std::string Account::report() const {
         reportOutput << '\t' << it->getVideo().getTitle();
 
         // current total hours and minutes
-        totalHours += it->getVideo().getHours() * it->getOccurrences();
-        totalMinutes += it->getVideo().getMinutes() * it->getOccurrences();
-
+	totalHours += calcTotalTime(it->getVideo().getHours(), it->getOccurrences());
+	totalMinutes += calcTotalTime(it->getVideo().getMinutes(), it->getOccurrences());
+	
         // stream counts and originals
         int streamCount = 0;
         int originals = 0;
