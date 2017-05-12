@@ -36,6 +36,6 @@ private:
 };
 
 // get the stream count
-int getStreamCount(std::vector<Stream>::const_iterator it);
+int getStreamCount(std::vector<Stream>::const_iterator it, int type)
 
 #endif
